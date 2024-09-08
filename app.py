@@ -24,7 +24,7 @@ eventos_atlas = st.Page(
     "atlas/eventos_atlas.py", title="Eventos Atlas", icon=":material/event:"
 )
 
-consolidador = st.Page("ferramentas/consolidador.py", title="Consolidador EXCEL/CSV", icon=":material/archive:")
+consolidador = st.Page("ferramentas/consolidador.py", title="Consolidador EXCEL", icon=":material/archive:")
 
 # Navegação
 pg = st.navigation(
