@@ -1,3 +1,3 @@
 import streamlit as st
 
-st.write("Página destinada a correção dos relatóris de Eventos da BRK")
+st.text("Futura página destinada a correção dos relatórios de Eventos da BRK")
