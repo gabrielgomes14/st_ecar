@@ -107,36 +107,54 @@ def main():
             file_name=nome_planilha,
             mime="text/csv"
         )
-        
-        identificacoes = df_corrigido['Identificacao'].unique()
-        identificacoes_selecionadas = st.multiselect("Selecione as Identificações", options=identificacoes)
+       
+    # Obtém todas as identificações únicas
+    identificacoes = df_corrigido['Identificacao'].unique()
 
-        colunas_graficos = ['Quantidade', 'Valor', 'ValorUnitario', 'UsoTotal', 'Uso', 'UsoPorLitro']
-        coluna_selecionada = st.selectbox("Selecione a coluna para o gráfico", options=colunas_graficos)
+    # Adiciona a opção "Selecionar Todas" no início da lista de opções
+    opcoes_identificacoes = ["Selecionar Todas"] + list(identificacoes)
 
-        if coluna_selecionada in df_corrigido.columns:
-            df_filtrado = df_corrigido[
-                df_corrigido['Identificacao'].isin(identificacoes_selecionadas)
-            ]
+    # Componente multiselect com a opção de selecionar todas
+    identificacoes_selecionadas = st.multiselect("Selecione as Identificações", options=opcoes_identificacoes, default=["Selecionar Todas"])
 
-            if coluna_selecionada != 'DataHora':
-                df_filtrado[coluna_selecionada] = pd.to_numeric(df_filtrado[coluna_selecionada].str.replace(',', '.'), errors='coerce')
-                df_filtrado = df_filtrado.dropna(subset=[coluna_selecionada])
+    # Se "Selecionar Todas" estiver selecionado, seleciona automaticamente todas as identificações
+    if "Selecionar Todas" in identificacoes_selecionadas:
+        identificacoes_selecionadas = list(identificacoes)
 
-                df_resumido = df_filtrado.groupby(['DataHora', 'Identificacao']).agg({coluna_selecionada: 'sum'}).reset_index()
+    # Seleciona as colunas para o gráfico
+    colunas_graficos = ['Quantidade', 'Valor', 'ValorUnitario', 'UsoTotal', 'Uso', 'UsoPorLitro']
+    coluna_selecionada = st.selectbox("Selecione a coluna para o gráfico", options=colunas_graficos)
 
-                df_resumido['DataHora'] = df_resumido['DataHora'].dt.strftime('%Y-%m-%d')  # Converta para string
+    if coluna_selecionada in df_corrigido.columns:
+        # Filtra o DataFrame com base nas identificações selecionadas
+        df_filtrado = df_corrigido[df_corrigido['Identificacao'].isin(identificacoes_selecionadas)]
 
-                chart_data = df_resumido.pivot(index='DataHora', columns='Identificacao', values=coluna_selecionada).fillna(0)
+        if coluna_selecionada != 'DataHora':
+            # Converte a coluna selecionada para numérico, lidando com vírgulas e valores inválidos
+            df_filtrado[coluna_selecionada] = pd.to_numeric(df_filtrado[coluna_selecionada].str.replace(',', '.'), errors='coerce')
+            df_filtrado = df_filtrado.dropna(subset=[coluna_selecionada])
 
-                st.bar_chart(
-                    chart_data,
-                    use_container_width=True
-                )
-            else:
-                st.error("Por favor, selecione uma coluna diferente de 'DataHora' para o gráfico.")
+            # Agrupa por DataHora e Identificacao e realiza a agregação pela soma
+            df_resumido = df_filtrado.groupby(['DataHora', 'Identificacao']).agg({coluna_selecionada: 'sum'}).reset_index()
+
+            # Converte DataHora para string para uso no gráfico
+            df_resumido['DataHora'] = df_resumido['DataHora'].dt.strftime('%Y-%m-%d')
+
+            # Agrupa novamente para remover possíveis duplicatas
+            df_resumido = df_resumido.groupby(['DataHora', 'Identificacao']).sum().reset_index()
+
+            # Reorganiza os dados para o gráfico de barras
+            chart_data = df_resumido.pivot_table(index='DataHora', columns='Identificacao', values=coluna_selecionada, fill_value=0)
+
+            # Exibe o gráfico de barras
+            st.bar_chart(
+                chart_data,
+                use_container_width=True
+            )
         else:
-            st.error(f"A coluna '{coluna_selecionada}' não está presente nos dados.")
+            st.error("Por favor, selecione uma coluna diferente de 'DataHora' para o gráfico.")
+    else:
+        st.error(f"A coluna '{coluna_selecionada}' não está presente nos dados.")
 
 uploaded_file = st.file_uploader("Por favor, forneça a planilha", type=['csv'])
 
