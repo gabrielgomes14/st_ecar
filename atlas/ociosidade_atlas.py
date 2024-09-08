@@ -1,3 +1,3 @@
 import streamlit as st
 
-st.write("Página destinada a correção dos relatóris de Ociosidade da Atlas Copco")
+st.text("Em desenvolvimento...")
