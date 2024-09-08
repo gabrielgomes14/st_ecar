@@ -28,7 +28,6 @@ consolidador = st.Page("ferramentas/consolidador.py", title="Consolidador EXCEL"
 
 comparador = st.Page("ferramentas/comparador.py", title="Comparador Coluna", icon=":material/archive:")
 
-
 # Navegação
 pg = st.navigation(
     {
