@@ -26,12 +26,15 @@ eventos_atlas = st.Page(
 
 consolidador = st.Page("ferramentas/consolidador.py", title="Consolidador EXCEL", icon=":material/archive:")
 
+comparador = st.Page("ferramentas/comparador.py", title="Comparador Coluna", icon=":material/archive:")
+
+
 # Navegação
 pg = st.navigation(
     {
         "BRK": [abastecimento_brk, ociosidade_brk, eventos_brk],
         "Atlas": [abastecimento_atlas, ociosidade_atlas, eventos_atlas],
-        "Ferramentas": [consolidador]
+        "Ferramentas": [consolidador, comparador]
     }
 )
 
