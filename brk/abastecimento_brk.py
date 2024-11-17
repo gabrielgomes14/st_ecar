@@ -7,6 +7,24 @@ from datetime import datetime
 def corrigir_planilha(df):
     # Remover espaços extras dos nomes das colunas
     df.columns = df.columns.str.strip()
+    
+    # Excluir linhas onde a coluna "Grupo" é "TO - EQUIPAMENTO" ou "TO - GERADOR"
+    if 'Grupo' in df.columns:
+        df = df[~df['Grupo'].isin(['TO - EQUIPAMENTO', 'TO - GERADOR'])]
+    else:
+        st.write("A coluna 'Grupo' não existe no DataFrame.")
+    
+    # Excluir linhas onde a coluna 'Modelo' é "Equipamento, Gerador"    
+    if 'Modelo' in df.columns:
+        df = df[~df['Modelo'].isin(['EQUIPAMENTO', 'GERADOR', 'Equipamento', 'equipamento', 'Gerador', 'gerador'])]
+    else:
+        st.write("A coluna 'Modelo' não existe")
+        
+    # Excluir linhas onde a coluna 'Fabricante' é "Equipamento, Gerador"    
+    if 'Fabricante' in df.columns:
+        df = df[~df['Fabricante'].isin(['EQUIPAMENTO', 'GERADOR', 'Equipamento', 'equipamento', 'Gerador', 'gerador'])]
+    else:
+        st.write("A coluna 'Fabricante' não existe")
 
     if 'Servico' in df.columns:
         # Remova espaços extras no início e no fim das strings na coluna 'Servico'
@@ -120,6 +138,13 @@ def main():
     # Se "Selecionar Todas" estiver selecionado, seleciona automaticamente todas as identificações
     if "Selecionar Todas" in identificacoes_selecionadas:
         identificacoes_selecionadas = list(identificacoes)
+        
+    ##Pra que serve
+    ##tantos códigos
+    ##se a vida
+    ##não é programada
+    ##e as melhores coisas
+    ##não têm lógica
 
     # Seleciona as colunas para o gráfico
     colunas_graficos = ['Quantidade', 'Valor', 'ValorUnitario', 'UsoTotal', 'Uso', 'UsoPorLitro']
