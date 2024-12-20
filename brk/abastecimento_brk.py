@@ -31,7 +31,7 @@ def corrigir_planilha(df):
         df['Servico'] = df['Servico'].str.strip()
 
         # Lista de itens que são combustíveis
-        combustiveis = ['Gasolina', 'Diesel', 'Diesel S500', 'Diesel S10', 'Gasolina Aditivada', 'Etanol']
+        combustiveis = ['Gasolina', 'Diesel', 'Diesel S500', 'Diesel S10', 'Gasolina Aditivada', 'Etanol', 'S10/50 ADITIVADO']
         
         # Substitua os valores 'Manutencao Preventiva' por 'Manutencao' e 'ARLA32' por 'ARLA 32'
         df['Servico'] = df['Servico'].replace({'Manutencao Preventiva': 'Manutencao', 'ARLA32': 'ARLA 32'})
