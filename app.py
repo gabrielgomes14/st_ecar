@@ -24,16 +24,13 @@ eventos_atlas = st.Page(
     "atlas/eventos_atlas.py", title="Eventos Atlas", icon=":material/event:"
 )
 
-consolidador = st.Page("ferramentas/consolidador.py", title="Consolidador EXCEL", icon=":material/archive:")
-
-comparador = st.Page("ferramentas/comparador.py", title="Comparador Coluna", icon=":material/archive:")
-
+checklist = st.Page("alpitel/checklist.py", title="Checklist", icon=":material/schedule:")
 # Navegação
 pg = st.navigation(
     {
         "BRK": [abastecimento_brk, ociosidade_brk, eventos_brk],
         "Atlas": [abastecimento_atlas, ociosidade_atlas, eventos_atlas],
-        "Ferramentas": [consolidador, comparador]
+        "Alpitel": [checklist]
     }
 )
 
