@@ -7,12 +7,11 @@ Este repositório contém diversos scripts de automação desenvolvidos em Pytho
 
 ## Índice
 
-- [Sobre](#sobre)
-- [Instalação](#instalação)
-- [Uso](#uso)
-- [Contribuição](#contribuição)
-- [Licença](#licença)
-- [Contato](#contato)
+- [Automação em Python](#automação-em-python)
+  - [Índice](#índice)
+  - [Sobre](#sobre)
+  - [Instalação](#instalação)
+  - [Uso](#uso)
 
 ## Sobre
 
