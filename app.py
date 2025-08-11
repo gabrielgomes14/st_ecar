@@ -20,13 +20,13 @@ alugueis = st.Page(
 gerador_multas = st.Page("volvo/gerador_multas.py", title="Multas", icon=":material/schedule:")
 
 ## Alpitel
-checklist = st.Page("alpitel/checklist.py", title="Checklist", icon=":material/schedule:")
+velocidade = st.Page("amanco/velocidade.py", title="Velocidade", icon=":material/schedule:")
 
 # Navegação
 pg = st.navigation(
     {
         "BRK": [abastecimento_brk, ociosidade_brk, eventos_brk],
-        "Alpitel": [checklist],
+        "Amanco": [velocidade],
         "Volvo": [alugueis, gerador_multas],
         "Suporte": [guia]
     }
