@@ -1,11 +1,9 @@
 import streamlit as st
 
 ## BRK Ambiental
-abastecimento_brk = st.Page(
-    "brk/abastecimento_brk.py", title="Abastecimentos", icon=":material/directions_car:"
+checklist = st.Page(
+    "bracell/checklist.py", title="entrada/saída", icon=":material/directions_car:"
 )
-ociosidade_brk = st.Page("brk/ociosidade_brk.py", title="Ociosidade", icon=":material/schedule:")
-eventos_brk = st.Page("brk/eventos_brk.py", title="Eventos", icon=":material/event:")
 
 ## suporte
 guia = st.Page(
@@ -25,7 +23,7 @@ velocidade = st.Page("amanco/velocidade.py", title="Velocidade", icon=":material
 # Navegação
 pg = st.navigation(
     {
-        "BRK": [abastecimento_brk, ociosidade_brk, eventos_brk],
+        "Bracell": [checklist],
         "Amanco": [velocidade],
         "Volvo": [alugueis, gerador_multas],
         "Suporte": [guia]
